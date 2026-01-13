@@ -23,9 +23,9 @@ export const portfolioData = {
 
   // Your skills - organized by category
   skills: {
-    'Languages': ['Java', 'Python', 'PHP'],
+    'Languages': ['Java', 'TypeScript', 'Python', 'PHP'],
     'Databases': ['PostgreSQL', 'MySQL', 'Redis', 'ElasticSearch'],
-    'Frameworks': ['Laravel', 'Spigot API', 'Celery', 'Selenium'],
+    'Frameworks': ['React', 'Spring Boot', 'Laravel', 'Spigot API', 'Celery', 'Selenium'],
     'DevOps & Tools': ['Docker', 'Git', 'Ollama'],
   },
 
@@ -65,6 +65,16 @@ export const portfolioData = {
         '',
       githubUrl: 'https://github.com/BekoLolek/GameLeaderboardSaaS',
     },
+    {
+      id: 4,
+      title: 'ConfigTool - Minecraft Server Config Manager',
+      description:
+        'A web-based SaaS for remotely managing Minecraft server plugin configurations with real-time WebSocket sync. Features a Monaco Editor (VS Code engine) for YAML editing, full version history with one-click rollback, and multi-server support from a single dashboard. Includes a lightweight Java agent plugin that connects servers to the dashboard. Optimized for zero-cost deployment on Cloudflare Pages, Fly.io, and Neon free tiers.',
+      techStack: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'WebSocket'],
+      learnings:
+        '',
+      githubUrl: 'https://github.com/BekoLolek/MC-configtool',
+    },
 
     // Minecraft Plugins Collection (at the end)
     {
@@ -98,6 +108,38 @@ export const portfolioData = {
           techStack: [],
           learnings: '',
           githubUrl: 'https://github.com/BekoLolek/VersionAdapter',
+        },
+        {
+          id: 104,
+          title: 'PlayerActionTracker',
+          description: 'A Minecraft plugin for detecting and logging suspicious player activities like potential duplication exploits. Tracks item pickups, container interactions, and inventory changes with configurable thresholds for anomaly detection. Features SQLite storage, real-time staff alerts, and detailed activity reports for server administrators.',
+          techStack: [],
+          learnings: '',
+          githubUrl: 'https://github.com/BekoLolek/PlayerActionTracker',
+        },
+        {
+          id: 105,
+          title: 'NewPlayerProtection',
+          description: 'A Minecraft plugin that gives new players temporary PvP protection, allowing them to get started without being attacked. Features configurable protection duration, visual indicators when protection is active, and admin commands to manage protection status for individual players.',
+          techStack: [],
+          learnings: '',
+          githubUrl: 'https://github.com/BekoLolek/NewPlayerProtection',
+        },
+        {
+          id: 106,
+          title: 'CommandLogger',
+          description: 'A Minecraft plugin that logs all player commands to MySQL with timestamps and metadata. Features an in-game GUI viewer for browsing command history, search and filter capabilities, and configurable command exclusions for privacy-sensitive commands.',
+          techStack: [],
+          learnings: '',
+          githubUrl: 'https://github.com/BekoLolek/CommandLogger',
+        },
+        {
+          id: 107,
+          title: 'AntiCommandSpam',
+          description: 'A lightweight Minecraft plugin that prevents players from spamming commands on Paper servers. Features configurable cooldown periods, command whitelist for exempt commands, permission bypass for staff, and clean warning messages.',
+          techStack: [],
+          learnings: '',
+          githubUrl: 'https://github.com/BekoLolek/AntiCommandSpam',
         },
       ],
     },
