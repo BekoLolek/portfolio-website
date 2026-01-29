@@ -69,8 +69,8 @@ export const portfolioData = {
       id: 4,
       title: 'ConfigTool - Minecraft Server Config Manager',
       description:
-        'A web-based SaaS for remotely managing Minecraft server plugin configurations with real-time WebSocket sync. Features a Monaco Editor (VS Code engine) for YAML editing, full version history with one-click rollback, and multi-server support from a single dashboard. Includes a lightweight Java agent plugin that connects servers to the dashboard. Optimized for zero-cost deployment on Cloudflare Pages, Fly.io, and Neon free tiers.',
-      techStack: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'WebSocket'],
+        'A production-ready SaaS platform for remotely managing Minecraft server plugin configurations with real-time WebSocket synchronization. Features Monaco Editor with YAML/JSON syntax highlighting, multi-tab editing with split view, and full version history with diff viewer and one-click rollback. Supports multi-tenant team collaboration with role-based access control (Owner, Admin, Editor, Viewer) and email-based invitations. Includes Stripe billing integration with tiered subscriptions, audit logging, and a lightweight Java agent plugin for bidirectional server communication. Optimized for zero-cost infrastructure using Vercel, Render, and Neon free tiers.',
+      techStack: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'WebSocket', 'Stripe', 'Docker', 'Render'],
       learnings:
         '',
       githubUrl: 'https://github.com/BekoLolek/MC-configtool',
