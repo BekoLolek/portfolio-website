@@ -73,7 +73,7 @@ export const portfolioData = {
       techStack: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'WebSocket', 'Stripe', 'Docker', 'Render'],
       learnings:
         '',
-      githubUrl: 'https://github.com/BekoLolek/MC-configtool',
+      githubUrl: 'https://github.com/BekoLolek/AgentGithubReleases',
     },
 
     // Minecraft Plugins Collection (at the end)
