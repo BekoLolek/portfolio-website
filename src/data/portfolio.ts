@@ -1,152 +1,205 @@
-import { Project } from '@/components/ProjectCard';
-import { ProjectCollectionData } from '@/components/ProjectCollection';
-
 // =============================================
 // EDIT YOUR PORTFOLIO DATA HERE
+// Mirrors the CV (public/LorantBeko.pdf). Update both together.
 // =============================================
 
-export const portfolioData = {
-  // Your personal information
-  name: 'Lóránt Bekó', // Replace with your full name
-  title: 'Software Engineer', // Replace with your professional title
-  email: 'bekololek@gmail.com', // Replace with your contact email
+export interface Link {
+  label: string;
+  href: string;
+}
 
-  // Social media links (optional - leave empty string if not applicable)
+export interface Role {
+  title: string;
+  company: string;
+  place: string;
+  dates: string;
+  link?: Link;
+  highlights: string[];
+}
+
+export interface FeaturedProject {
+  name: string;
+  tagline: string;
+  context: string;
+  stack: string[];
+  highlights: string[];
+  links: Link[];
+}
+
+export interface SideProject {
+  name: string;
+  summary: string;
+  stack: string[];
+  githubUrl: string;
+}
+
+export interface ProjectGroup {
+  name: string;
+  summary: string;
+  items: SideProject[];
+}
+
+export interface Metric {
+  value: string;
+  label: string;
+}
+
+export const portfolioData = {
+  name: 'Lóránt Bekó',
+  role: 'Full-Stack & Backend Engineer',
+  location: 'Horsens, Denmark',
+  email: 'bekololek@gmail.com',
+  cvUrl: '/LorantBeko.pdf',
   socials: {
     github: 'https://github.com/BekoLolek',
     linkedin: 'https://linkedin.com/in/bekololek',
-    twitter: '', // Leave empty if you don't want to show Twitter
   },
 
-  // Resume file path (place your resume.pdf in the public folder)
-  resumeUrl: '/LórántBekó.pdf',
+  profile:
+    'Full-stack and backend engineer who builds and runs production SaaS. I currently develop a multi-tenant scheduling platform with an agentic AI assistant (React, TypeScript, Supabase/PostgreSQL, Anthropic Claude), and have shipped Java/Spring Boot platforms with PostgreSQL, Redis and Docker. I work spec-first and test-first, use AI coding agents in a reviewed, gated workflow, and care about data correctness, security and reliable releases.',
 
-  // Your skills - organized by category
-  skills: {
-    'Languages': ['Java', 'TypeScript', 'Python', 'PHP'],
-    'Databases': ['PostgreSQL', 'MySQL', 'Redis', 'ElasticSearch'],
-    'Frameworks': ['React', 'Spring Boot', 'Laravel', 'Spigot API', 'Celery', 'Selenium'],
-    'DevOps & Tools': ['Docker', 'Git', 'Ollama'],
-  },
+  metrics: [
+    { value: '3,000+', label: 'web tests behind CI' },
+    { value: '1,100+', label: 'pgTAP database tests' },
+    { value: '30+', label: 'role-gated AI assistant tools' },
+    { value: '+170%', label: 'API throughput at LiveScoreAPI' },
+    { value: '−40%', label: 'page load time, freelance work' },
+  ] as Metric[],
 
-  // Your projects - supports both individual projects and collections (folders)
-  // Use type: 'collection' for grouped projects like Minecraft plugins
-  projects: [
-    // Individual projects
+  experience: [
     {
-      id: 1,
-      title: 'Automatic Creator for TikTok',
-      description:
-        'An automated pipeline that converts Reddit stories into TikTok videos with AI-powered narration and automated uploads. Features human-in-the-loop approval via a web dashboard, multi-part series support for lengthy stories, and LLM-enhanced hooks and calls-to-action. Uses Whisper for AI-generated captions and Puppeteer for browser automation with graceful fallback to manual uploads.',
-      techStack: ['Python', 'Docker', 'PostgreSQL', 'Ollama', 'Celery', 'Elasticsearch'],
-      learnings:
-        '',
-      githubUrl: 'https://github.com/BekoLolek/tiktok-auto',
-      liveUrl: '',
-    },
-    {
-      id: 2,
-      title: 'Arbitrage Opportunity Finder',
-      description:
-        'An intelligent web scraper that extracts football betting odds from multiple betting sites using LLM-powered CSS selector discovery. Leverages Ollama to analyze HTML structures and automatically identify correct selectors, making the scraper adaptable when websites change their layouts. Calculates arbitrage opportunities by comparing odds across bookmakers and identifies both profitable and near-profitable betting scenarios.',
-      techStack: ['Java', 'Docker', 'Ollama', 'PostgreSQL', 'Selenium'],
-      learnings:
-        '',
-      githubUrl: 'https://github.com/BekoLolek/football-scraper',
-      liveUrl: '',
-    },
-    {
-      id: 3,
-      title: 'Leaderboard SaaS Application',
-      description:
-        'A multi-tenant Software-as-a-Service platform that enables game developers to manage player scores and leaderboards with unique API credentials per tenant. Supports three scoring modes including highest score, cumulative totals, and fastest time competitions with automatic player creation and cross-game tracking. Features a React 19 dashboard with comprehensive analytics including top performers, player counts, and average performance metrics.',
-      techStack: ['PHP', 'Laravel 12', 'Redis', 'PostgreSQL'],
-      learnings:
-        '',
-      githubUrl: 'https://github.com/BekoLolek/GameLeaderboardSaaS',
-    },
-    {
-      id: 4,
-      title: 'ConfigTool - Minecraft Server Config Manager',
-      description:
-        'A production-ready SaaS platform for remotely managing Minecraft server plugin configurations with real-time WebSocket synchronization. Features Monaco Editor with YAML/JSON syntax highlighting, multi-tab editing with split view, and full version history with diff viewer and one-click rollback. Supports multi-tenant team collaboration with role-based access control (Owner, Admin, Editor, Viewer) and email-based invitations. Includes Stripe billing integration with tiered subscriptions, audit logging, and a lightweight Java agent plugin for bidirectional server communication. Optimized for zero-cost infrastructure using Vercel, Render, and Neon free tiers.',
-      techStack: ['React', 'TypeScript', 'Spring Boot', 'Java', 'PostgreSQL', 'WebSocket', 'Stripe', 'Docker', 'Render'],
-      learnings:
-        '',
-      githubUrl: 'https://github.com/BekoLolek/AgentGithubReleases',
-    },
-
-    // Minecraft Plugins Collection (at the end)
-    {
-      id: 'minecraft-plugins',
-      type: 'collection' as const,
-      title: 'Minecraft Plugins',
-      description: 'A collection of custom Minecraft server plugins built with Java and the Paper API',
-      icon: 'minecraft' as const,
-      projects: [
-        {
-          id: 101,
-          title: 'Dungeons',
-          description: 'A grid-based dungeon plugin for Minecraft 1.21.4 that enables multiplayer dungeon experiences with party systems and isolated instances. Features six quest types including mob elimination, item collection, and time survival challenges with chance-based loot tables. Integrates with WorldEdit for schematic loading, WorldGuard for region protection, MythicMobs for custom enemies, and Vault for economy rewards.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/Dungeons',
-          liveUrl: '',
-        },
-        {
-          id: 102,
-          title: 'Quests Revamped',
-          description: 'A comprehensive quest and progression system plugin for Minecraft Paper/Spigot servers with three quest categories and eight specific types including parkour, combat, and collection challenges. Features difficulty tiers with scaling rewards, point-based player tracking, and economy integration via Vault. Includes social features like multi-page leaderboards, monthly winner recognition, and Discord webhook integration for automated weekly posts.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/QuestsRevamped',
-        },
-        {
-          id: 103,
-          title: 'Version Adapter',
-          description: 'A cross-version compatibility library for Minecraft plugins that solves API breaking changes between Minecraft versions through automatic runtime enum name resolution. Provides version-safe utilities for materials, attributes, particles, and sounds with pre-resolved constants and dynamic lookups. Enables plugins to work seamlessly across Minecraft versions 1.19 through 1.21.4 without requiring code changes or multiple builds.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/VersionAdapter',
-        },
-        {
-          id: 104,
-          title: 'PlayerActionTracker',
-          description: 'A Minecraft plugin for detecting and logging suspicious player activities like potential duplication exploits. Tracks item pickups, container interactions, and inventory changes with configurable thresholds for anomaly detection. Features SQLite storage, real-time staff alerts, and detailed activity reports for server administrators.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/PlayerActionTracker',
-        },
-        {
-          id: 105,
-          title: 'NewPlayerProtection',
-          description: 'A Minecraft plugin that gives new players temporary PvP protection, allowing them to get started without being attacked. Features configurable protection duration, visual indicators when protection is active, and admin commands to manage protection status for individual players.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/NewPlayerProtection',
-        },
-        {
-          id: 106,
-          title: 'CommandLogger',
-          description: 'A Minecraft plugin that logs all player commands to MySQL with timestamps and metadata. Features an in-game GUI viewer for browsing command history, search and filter capabilities, and configurable command exclusions for privacy-sensitive commands.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/CommandLogger',
-        },
-        {
-          id: 107,
-          title: 'AntiCommandSpam',
-          description: 'A lightweight Minecraft plugin that prevents players from spamming commands on Paper servers. Features configurable cooldown periods, command whitelist for exempt commands, permission bypass for staff, and clean warning messages.',
-          techStack: [],
-          learnings: '',
-          githubUrl: 'https://github.com/BekoLolek/AntiCommandSpam',
-        },
+      title: 'Full-Stack Engineer',
+      company: 'ServiceGuideAI',
+      place: 'Denmark',
+      dates: 'May 2026 – Present',
+      link: { label: 'orvello.io', href: 'https://orvello.io' },
+      highlights: [
+        'Build Orvello, a multi-tenant shift-scheduling SaaS for hospitality (React, TypeScript, Vite, Supabase/PostgreSQL, Vercel), with strict per-venue isolation through Postgres Row-Level Security, security-definer RPCs and manager/employee role gating.',
+        'Engineered “Orvy”, an agentic AI assistant on Anthropic Claude with 30+ role-gated tools and human-in-the-loop approval. Actions such as sick calls run as atomic SQL transactions, and the UI reports partial or failed outcomes honestly.',
+        'Moved scheduling rules into a shared, pure TypeScript domain package (eligibility, ranking, week status) used by the planner, AI tools, web and mobile, so every page and the AI give the same answer.',
+        'Shipped SSE-streamed AI chat on rate-limited Vercel endpoints with prompt caching and per-tenant cost tracking. Integrated Google Calendar (OAuth, FreeBusy), ICS import and Claude-vision OCR.',
+        'Released the React Native/Expo employee app to TestFlight and Google Play via EAS, with push notifications (Expo, Web Push), an outbox delivery worker and a forced-update gate.',
+        'Maintain 3,000+ web tests, ~900 domain tests and 1,100+ pgTAP database tests behind CI. Production migrations are applied by hand with deploy notes, and features reach main only after code tests and browser QA.',
+        'Run a spec-driven workflow: requirements → use cases → plan, then one AI coding agent per task followed by spec and KISS/SOLID review, isolated-worktree verification and a reviewed commit.',
       ],
     },
-  ] as (Project | ProjectCollectionData)[],
+    {
+      title: 'Freelance Web Developer',
+      company: 'Self-employed',
+      place: 'Budapest, Hungary',
+      dates: 'May 2024 – Present',
+      highlights: [
+        'Deliver end-to-end web solutions (React, Node.js, Laravel) from requirements gathering to deployment and hosting.',
+        'Cut page load time by 40% through profiling, asset optimisation, caching and lazy loading.',
+      ],
+    },
+    {
+      title: 'PHP Developer',
+      company: 'LiveScoreAPI',
+      place: 'Horsens, Denmark',
+      dates: 'Mar 2024 – Aug 2024',
+      highlights: [
+        'Built backend services in PHP and MySQL for an API serving real-time sports data to paying customers.',
+        'Improved API throughput by 170% with Redis caching, query rewrites and indexing.',
+        'Took part in code reviews and worked with senior engineers on monitoring and system reliability.',
+      ],
+    },
+  ] as Role[],
+
+  projects: [
+    {
+      name: 'ConfigTool',
+      tagline: 'Production SaaS platform',
+      context: 'Jan 2026',
+      stack: ['Spring Boot', 'PostgreSQL', 'Redis', 'WebSocket', 'Stripe', 'Docker', 'GitHub Actions'],
+      highlights: [
+        'Architected a full-stack platform with a Spring Boot backend, PostgreSQL and Redis caching.',
+        'Built REST APIs and real-time WebSocket connections. Integrated Stripe payments and third-party services.',
+        'Set up CI/CD with GitHub Actions and Docker for automated test, build and deploy.',
+      ],
+      links: [
+        { label: 'configtool.org', href: 'https://configtool.org' },
+        { label: 'GitHub', href: 'https://github.com/BekoLolek/AgentGithubReleases' },
+      ],
+    },
+    {
+      name: 'PluginFactory',
+      tagline: 'AI-powered plugin generator',
+      context: 'Apr 2026',
+      stack: ['Java 17', 'Spring Boot 3.3', 'PostgreSQL', 'Redis', 'Claude', 'Docker', 'Prometheus', 'Grafana'],
+      highlights: [
+        'Built a backend (Java 17, Spring Boot 3.3, PostgreSQL, Redis) that uses Claude to generate, compile and test plugin code.',
+        'Engineered a containerised build pipeline with Docker-in-Docker execution and Resilience4j circuit breakers.',
+        'Deployed the stack with Docker Compose: API, PostgreSQL, Redis, nginx, MinIO and Prometheus/Grafana monitoring.',
+      ],
+      links: [{ label: 'pluginfactory.org', href: 'https://pluginfactory.org' }],
+    },
+    {
+      name: 'Gambatron',
+      tagline: 'Arbitrage detection system',
+      context: 'Bachelor’s thesis · Aug 2025 – Jan 2026',
+      stack: ['Java 17', 'Spring Boot', 'Selenium WebDriver'],
+      highlights: [
+        'Built a real-time arbitrage finder in Java 17 and Spring Boot that scans 5+ bookmaker sites.',
+        'Automated odds extraction with Selenium WebDriver and concurrent processing.',
+        'Implemented algorithms that detect pricing discrepancies across bookmakers in real time.',
+      ],
+      links: [{ label: 'GitHub', href: 'https://github.com/BekoLolek/football-scraper' }],
+    },
+  ] as FeaturedProject[],
+
+  otherWork: [
+    {
+      name: 'Automatic Creator for TikTok',
+      summary: 'Pipeline that turns Reddit stories into narrated TikTok videos, with a human approval dashboard and Whisper captions.',
+      stack: ['Python', 'Celery', 'PostgreSQL', 'Ollama', 'Docker'],
+      githubUrl: 'https://github.com/BekoLolek/tiktok-auto',
+    },
+    {
+      name: 'Leaderboard SaaS',
+      summary: 'Multi-tenant leaderboard API for game developers, with per-tenant credentials, three scoring modes and an analytics dashboard.',
+      stack: ['Laravel 12', 'PHP', 'PostgreSQL', 'Redis', 'React'],
+      githubUrl: 'https://github.com/BekoLolek/GameLeaderboardSaaS',
+    },
+  ] as SideProject[],
+
+  pluginGroup: {
+    name: 'Minecraft plugins',
+    summary: 'Seven Paper/Spigot server plugins in Java.',
+    items: [
+      { name: 'Dungeons', summary: 'Instanced party dungeons with quests, loot tables and WorldEdit/MythicMobs integration.', stack: [], githubUrl: 'https://github.com/BekoLolek/Dungeons' },
+      { name: 'Quests Revamped', summary: 'Quest and progression system with difficulty tiers, leaderboards and Discord webhooks.', stack: [], githubUrl: 'https://github.com/BekoLolek/QuestsRevamped' },
+      { name: 'Version Adapter', summary: 'Runtime enum resolution so one plugin build runs on Minecraft 1.19 to 1.21.4.', stack: [], githubUrl: 'https://github.com/BekoLolek/VersionAdapter' },
+      { name: 'PlayerActionTracker', summary: 'Logs suspicious item and container activity to SQLite and alerts staff.', stack: [], githubUrl: 'https://github.com/BekoLolek/PlayerActionTracker' },
+      { name: 'NewPlayerProtection', summary: 'Temporary PvP protection for new players.', stack: [], githubUrl: 'https://github.com/BekoLolek/NewPlayerProtection' },
+      { name: 'CommandLogger', summary: 'Logs player commands to MySQL with an in-game search GUI.', stack: [], githubUrl: 'https://github.com/BekoLolek/CommandLogger' },
+      { name: 'AntiCommandSpam', summary: 'Per-command cooldowns with a whitelist and staff bypass.', stack: [], githubUrl: 'https://github.com/BekoLolek/AntiCommandSpam' },
+    ],
+  } as ProjectGroup,
+
+  skills: {
+    Languages: ['Java', 'TypeScript', 'JavaScript', 'SQL (PL/pgSQL)', 'PHP'],
+    Frameworks: ['Spring Boot', 'React', 'Node.js', 'Vite', 'TanStack Query', 'React Native (Expo)', 'Laravel'],
+    Databases: ['PostgreSQL', 'Supabase (RLS, RPCs, triggers, Realtime)', 'Redis', 'MongoDB', 'MySQL'],
+    Infrastructure: ['Docker', 'AWS', 'Vercel (Edge/Serverless)', 'GitHub Actions', 'CI/CD', 'REST', 'SSE', 'WebSockets', 'EAS'],
+    Testing: ['Vitest', 'Jest', 'Playwright', 'pgTAP', 'JUnit', 'Testing Library', 'MSW'],
+    Practices: ['System Design', 'TDD', 'Code Review', 'Trunk-Based Development', 'SCRUM', 'LLM Tool-Calling', 'AI-Assisted Development'],
+  } as Record<string, string[]>,
+
+  education: {
+    degree: 'Bachelor of Software Technology Engineering',
+    school: 'VIA University College, Denmark',
+    dates: 'Jan 2026',
+    coursework: ['Algorithms and Data Structures', 'Advanced Linear Algebra', 'Calculus', 'User Experience'],
+  },
+
+  languages: [
+    { name: 'Hungarian', level: 'Native' },
+    { name: 'English', level: 'Professional' },
+  ],
+
+  personal:
+    'Passionate about building systems that work reliably at scale. Played competitive ice hockey for 15 years in Hungary, which taught me teamwork, discipline and performing under pressure. In my free time I create and play video games and enjoy movies and series.',
 };
 
-// =============================================
-// DO NOT EDIT BELOW THIS LINE
-// =============================================
 export type PortfolioData = typeof portfolioData;
